@@ -1,0 +1,80 @@
+create table student(
+roll int primary key auto_increment,
+sname varchar(20),
+address varchar(20),
+email varchar(30),
+password varchar(15)
+
+
+);
+
+insert into student values(1, 'Ram','mumbai', 'ram@gmail.com', '1234'); 
+insert into student values(2, 'shyam','delhi', 'shyam@gmail.com', '1234'); 
+insert into student(sname,address,email,password) values('vikram','mumbai', 'vikram@abc.com', '1234');   
+
+
+
+
+create table Admin(
+username varchar(20) primary key ,
+password varchar(20),
+aname varchar(20)
+);
+
+insert into admin values('admin', 'admin@1234', 'Jhulan'); 
+
+
+
+
+
+create table course(
+courseID int primary key auto_increment,
+courseName varchar(20),
+session varchar(20),
+numberOfBatches int,
+courseFee bigint,
+courseDuration varchar(30)
+
+);
+
+insert into course values(1, 'Java', 'winter', 1, 25000, '6_months');
+insert into course values(2, 'Android', 'summer', 2, 20000, '6_months');
+
+
+
+create table batches(
+batchID int primary key auto_increment,
+cid int,
+numberOfSeatsAvailable bigint,
+
+foreign key (cid) references course(courseID)
+);
+
+insert into batches values(1, 2, 100);
+insert into batches values(2, 1, 70);
+insert into batches values(3, 1, 60);
+
+//
+--update query example
+ UPDATE table_name
+ SET column1 = value1, column2 = value2, ...
+ WHERE condition;
+//
+
+update  course 
+set numberOfBatches =2 where courseID =1;
+
+
+
+
+create table student_course_allocation(
+cid int,
+roll int,
+batchID int,
+foreign key (cid) references course(courseID),
+foreign key (roll) references student(roll),
+foreign key (batchID) references batches(batchID)
+);
+
+insert into student_course_allocation values(2,1,1);
+insert into student_course_allocation values(1,2,3);
